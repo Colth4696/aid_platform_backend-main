@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_03_195939) do
+ActiveRecord::Schema.define(version: 2021_04_21_043336) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -62,17 +62,10 @@ ActiveRecord::Schema.define(version: 2021_04_03_195939) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_requests_on_user_id"
-  end
-
-  create_table "statuses", force: :cascade do |t|
     t.boolean "fulfilled", default: false
-    t.integer "request_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "volunteer_id"
-    t.index ["request_id"], name: "index_statuses_on_request_id"
-    t.index ["volunteer_id"], name: "index_statuses_on_volunteer_id"
+    t.index ["user_id"], name: "index_requests_on_user_id"
+    t.index ["volunteer_id"], name: "index_requests_on_volunteer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_195939) do
     t.integer "request_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "active", default: true
     t.index ["request_id"], name: "index_volunteers_on_request_id"
     t.index ["user_id"], name: "index_volunteers_on_user_id"
   end
@@ -99,8 +93,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_195939) do
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "requests", "users"
-  add_foreign_key "statuses", "requests"
-  add_foreign_key "statuses", "volunteers"
+  add_foreign_key "requests", "volunteers"
   add_foreign_key "volunteers", "requests"
   add_foreign_key "volunteers", "users"
 end
