@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :requests, dependent: :destroy
   has_and_belongs_to_many :chatrooms, dependent: :destroy
-  has_many :volunteers
+  has_many :volunteers, inverse_of => :users
 
   validates :email, presence: true
   validates :email, uniqueness: true

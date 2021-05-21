@@ -40,23 +40,22 @@ class RequestsController < ApplicationController
           }
         end
       end
-      def edit
-        @request = Request.find(params[:id])
-        if @request
-          render json: {
-            request: @request
-          }
-        else 
-          render json: {
-            status: 500,
-            errors: @request.errors.full_messages
-          }
-        end
-      end
+      # def edit
+      #   @request = Request.find(params[:id])
+      #   if @request
+      #     render json: {
+      #       request: @request
+      #     }
+      #   else 
+      #     render json: {
+      #       status: 500,
+      #       errors: @request.errors.full_messages
+      #     }
+      #   end
+      # end
       def update
-        @request = Request.find(params[:title])
-        @request.update(fulfilled: params[:request][:fulfilled])
-        redirect_to article_path(@request)
+        @request = Request.find(params[:id])
+        @request.update(fulfilled: params[:fulfilled])
         if @request
           render json: {
             request: @request
